@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoServletsRule.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SonarQube Java :: Documentation :: Custom Rules Example</a> &gt; <a href="index.source.html" class="el_package">org.sonar.samples.java.checks</a> &gt; <span class="el_source">NoServletsRule.java</span></div><h1>NoServletsRule.java</h1><pre class="source lang-java linenums">package org.sonar.samples.java.checks;
+
+import org.sonar.check.Rule;
+import org.sonar.plugins.java.api.JavaFileScanner;
+import org.sonar.plugins.java.api.JavaFileScannerContext;
+import org.sonar.plugins.java.api.tree.BaseTreeVisitor;
+import org.sonar.plugins.java.api.tree.ClassTree;
+import org.sonar.plugins.java.api.tree.TypeTree;
+
+@Rule(key = &quot;NoServlets&quot;)
+<span class="fc" id="L11">public class NoServletsRule extends BaseTreeVisitor implements JavaFileScanner{</span>
+
+	private JavaFileScannerContext context;
+	
+	@Override
+	public void scanFile(JavaFileScannerContext context) {
+<span class="fc" id="L17">	    this.context = context;</span>
+<span class="fc" id="L18">	    scan(context.getTree());		</span>
+<span class="fc" id="L19">	}</span>
+	
+	@Override
+	public void visitClass(ClassTree tree) {
+		
+<span class="fc" id="L24">		System.out.println(tree.superClass());</span>
+		
+<span class="fc" id="L26">	    String superClassName = null;</span>
+<span class="fc" id="L27">	    TypeTree tt = tree.superClass();</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">	    if(tt!=null) {</span>
+<span class="fc" id="L29">	    	superClassName = tree.superClass().symbolType().fullyQualifiedName();</span>
+	    }
+
+<span class="fc" id="L32">	    System.out.println(superClassName);</span>
+	    
+	    // Check if superClass avoid
+<span class="pc bpc" id="L35" title="4 of 6 branches missed.">	    if (superClassName!=null &amp;&amp; (superClassName.contains(&quot;HttpServlet&quot;) || superClassName.contains(&quot;GenericServlet&quot;))) {</span>
+<span class="fc" id="L36">	      System.out.println(&quot;ZAS&quot;);</span>
+<span class="fc" id="L37">          context.reportIssue(this, tree, &quot;No están permitidos los servlets&quot;);</span>
+	    }
+		
+<span class="fc" id="L40">		super.visitClass(tree);</span>
+<span class="fc" id="L41">	}</span>
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

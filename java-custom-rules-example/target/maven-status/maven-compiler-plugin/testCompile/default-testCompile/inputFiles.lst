@@ -1,0 +1,15 @@
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/MyJavaRulesDefinitionTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/NoServletsRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/AvoidAnnotationRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/utils/StringUtilsTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/SecurityAnnotationMandatoryRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/AvoidBrandInMethodNamesRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/AvoidTreeListRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/MyJavaFileCheckRegistrarTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/AvoidSuperClassRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/NoIfStatementInTestsRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/SpringControllerRequestMappingEntityRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/AvoidMethodDeclarationRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/MyJavaRulesPluginTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/checks/MyCustomSubscriptionRuleTest.java
+/home/sonarqube/Desktop/workspace_2/java-custom-rules-example/src/test/java/org/sonar/samples/java/utils/FilesUtils.java

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="AvoidAnnotationRuleTest" project="java-custom-rules-example" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="org.sonar.samples.java.checks.AvoidAnnotationRuleTest" time="1.25" displayname="AvoidAnnotationRuleTest" uniqueid="[engine:junit-jupiter]/[class:org.sonar.samples.java.checks.AvoidAnnotationRuleTest]">
+    <testcase name="detected" classname="org.sonar.samples.java.checks.AvoidAnnotationRuleTest" time="1.25" displayname="detected()" uniqueid="[engine:junit-jupiter]/[class:org.sonar.samples.java.checks.AvoidAnnotationRuleTest]/[method:detected()]"/>
+  </testsuite>
+</testrun>

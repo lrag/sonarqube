@@ -1,0 +1,35 @@
+package org.sonar.samples.java.checks;
+
+import org.sonar.check.Rule;
+import org.sonar.plugins.java.api.JavaFileScanner;
+import org.sonar.plugins.java.api.JavaFileScannerContext;
+import org.sonar.plugins.java.api.tree.BaseTreeVisitor;
+import org.sonar.plugins.java.api.tree.ClassTree;
+
+@Rule(key = "NoServletsRule")
+public class NoServletsRule extends BaseTreeVisitor implements JavaFileScanner{
+
+	private JavaFileScannerContext context;
+	
+	@Override
+	public void scanFile(JavaFileScannerContext context) {
+	    this.context = context;
+	    scan(context.getTree());		
+	}
+
+	@Override
+	public void visitClass(ClassTree tree) {
+		
+	    String superClassName = tree.superClass().symbolType().fullyQualifiedName();
+
+	    // Check if superClass avoid
+	    if ("HttpServlet".contains(superClassName)) {
+          context.reportIssue(this, tree, "No están permitidos los servlets");
+	    }
+		
+		super.visitClass(tree);
+	}
+	
+	
+
+}

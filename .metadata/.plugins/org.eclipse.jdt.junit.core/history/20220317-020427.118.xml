@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="NoServletsRuleTest" project="java-custom-rules-example" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="org.sonar.samples.java.checks.NoServletsRuleTest" time="1.748" displayname="NoServletsRuleTest" uniqueid="[engine:junit-jupiter]/[class:org.sonar.samples.java.checks.NoServletsRuleTest]">
+    <testcase name="verify" classname="org.sonar.samples.java.checks.NoServletsRuleTest" time="1.748" displayname="verify()" uniqueid="[engine:junit-jupiter]/[class:org.sonar.samples.java.checks.NoServletsRuleTest]/[method:verify()]"/>
+  </testsuite>
+</testrun>
