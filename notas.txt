@@ -1,0 +1,171 @@
+
+
+IMPORTAR EL PROYECTO
+
+https://github.com/SonarSource/sonar-java/tree/master/docs/java-custom-rules-example
+
+ORG.SONAR.SAMPLES.JAVA
+
+-MyJavaRulesPlugin implements PLUGIN <-- 
+
+-MyJavaRulesDefinition, 
+ una clase que crea un repositorio con las reglas.
+ Este repositorio se instancia al arrancar SQ para que las reglas aparezcan 
+ en la pantalla de rules
+
+ ruleMetadataLoader.addRulesByAnnotatedClass(repository, new ArrayList<>(RulesList.getChecks()));
+
+-MyJavaFileCheckRegistrar
+ Proporciona una lista de las reglas que se instanciar�n durante el an�lisis del codigo
+ Diferencia entre 
+ -reglas para el c�digo de la aplicaci�n 
+ -reglas para el c�digo de los tests
+ 
+-RuleList
+ Es una clase de utilidad que crea las listas de Rules
+ 
+ 
+ORG.SONAR.SAMPLES.JAVA.CHECKS
+
+package org.sonar.samples.java.checks;
+
+import org.sonar.check.Rule;
+import org.sonar.plugins.java.api.JavaFileScanner;
+import org.sonar.plugins.java.api.JavaFileScannerContext;
+import org.sonar.plugins.java.api.tree.BaseTreeVisitor;
+import org.sonar.plugins.java.api.tree.ClassTree;
+import org.sonar.plugins.java.api.tree.TypeTree;
+
+@Rule(key = "NoServlets")
+public class NoServletsRule extends BaseTreeVisitor implements JavaFileScanner{
+
+	private JavaFileScannerContext context;
+	
+	@Override
+	public void scanFile(JavaFileScannerContext context) {
+	    this.context = context;
+	    scan(context.getTree());		
+	}
+
+	@Override
+	public void visitClass(ClassTree tree) {
+		
+	    System.out.println(tree.superClass());
+		
+	    String superClassName = null;
+	    TypeTree tt = tree.superClass();
+	    if(tt!=null) {
+	    	superClassName = tree.superClass().symbolType().fullyQualifiedName();
+	    }
+
+	    System.out.println(superClassName);
+	    
+	    if (superClassName!=null && superClassName.contains("HttpServlet")) {
+	      System.out.println("ZAS");
+              context.reportIssue(this, tree, "No est�n permitidos los servlets");
+	    }
+		
+	    super.visitClass(tree);
+	}
+}
+
+REGISTRAR NUESTRA REGLA EN RULES_LIST
+
+SRC/MAIN/RESOURCES
+
+Plantilla HTML y JSON con el nombre indicado para la regla en la anotaci�n @Rule
+@Rule(key = "NoServlets")
+
+TEST PARA LA REGLA
+
+src/test/java/ORG.SONAR.SAMPLES.JAVA.CHECKS
+
+package org.sonar.samples.java.checks;
+
+import org.junit.jupiter.api.Test;
+import org.sonar.java.checks.verifier.CheckVerifier;
+import org.sonar.samples.java.utils.FilesUtils;
+
+class NoServletsRuleTest {
+
+  @Test
+  void verify() {
+	try {
+	    CheckVerifier.newVerifier()
+	      .onFile("src/test/files/NoServletsRule.java")
+	      .withCheck(new NoServletsRule())
+	      .withClassPath(FilesUtils.getClassPath("target/test-jars"))
+	      .verifyIssues();
+	} catch(Throwable e) {
+		System.out.println(e);
+	}	
+  }
+}
+
+CLASE PARA LA PRUEBA:
+
+en SRC/TEST/FILES, que no es source folder
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ServletEjemplo extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doGet(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doPost(req, resp);
+	}
+
+}
+
+JAR PARA QUE DURANTE EL TEST SE PUEDA ANALIZAR BIEN EL SERVLET
+
+ARTIFACT ITEM EN POM.XML -> lo coloca en target/text-jars
+
+<artifactItem>
+	<groupId>javax.servlet</groupId>
+	<artifactId>javax.servlet-api</artifactId>
+	<version>3.0.1</version>
+	<type>jar</type>
+</artifactItem>
+
+
+
+MVN VERIFY
+
+Copiar el jar de /target a SQ/extensions/plugins
+
+
+
+PLUGIN PL-SQL
+https://felipezorzo.com.br/zpa/
+https://github.com/Trivadis/plsql-cop-sonar
+
+
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+
+
+
+
+
+
+
+
+
+
+
+
